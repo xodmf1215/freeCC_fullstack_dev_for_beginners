@@ -1,8 +1,18 @@
-const path = require('node:path/posix')
-const express = require('express')
+import express from "express";
+import cors from "cors";
+import reviews from "./api/reviews.route.js";
+
+//const path = require('node:path/posix')
+//const express = require('express')
 const webApp = express()
 const port = 3000
 
+webApp.use(cors())
+webApp.use(express.json())
+webApp.use("/api/v1/reviews", reviews)
+webApp.use("*", (req, res) => res.status(404).json({error: "not found"}))
+
+export default webApp;
 webApp.use(express.static('public'))
 /* 
 webApp.use('/img', express.static(path.join(__dirname,'public/img')));
@@ -12,6 +22,8 @@ webApp.get('/img/:name',(req,res) => {
 })
 */
 
+/*
+// FRONTEND TEST ~ 2023.5.17.
 webApp.get('/', (req, res) => {
     //res.sendFile('index.html', { root: __dirname + '/public/pages' })
     let options = {
@@ -33,3 +45,5 @@ webApp.post('/', (req,res) => {
 webApp.listen(port, () => {
     console.log('app listening on port {port}')
 })
+
+ */
