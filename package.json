@@ -2,15 +2,17 @@
   "name": "freecc_fullstack_dev_for_beginners",
   "version": "1.0.0",
   "description": "",
-  "main": "module entry",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongodb": "^5.5.0"
   }
 }

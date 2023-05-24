@@ -4,16 +4,24 @@ import reviews from "./api/reviews.route.js";
 
 //const path = require('node:path/posix')
 //const express = require('express')
-const webApp = express()
-const port = 3000
 
-webApp.use(cors())
-webApp.use(express.json())
-webApp.use("/api/v1/reviews", reviews)
-webApp.use("*", (req, res) => res.status(404).json({error: "not found"}))
+// Express is a routing and middleware web framework that has minimal functionality of its own:
+//   An Express application is essentially a series of middleware function calls.
+// Middleware functions are functions that have access to the request object (req), the response object (res),
+const webApp = express();
+const port = 3000;
+
+// Mounts the specified middleware function or functions at the specified path:
+//  the middleware function is executed when the base of the requested path matches path.
+// Middleware functions are executed sequentially, therefore the order of middleware inclusion is important.
+webApp.use(cors());
+webApp.use(express.json());
+webApp.use("/test", (req,res) => res.status(200).json({hello: "hello"}));
+webApp.use("/api/v1/reviews", reviews);
+webApp.use("*", (req, res) => res.status(404).json({error: "not found"}));
 
 export default webApp;
-webApp.use(express.static('public'))
+webApp.use(express.static('public'));
 /* 
 webApp.use('/img', express.static(path.join(__dirname,'public/img')));
 

@@ -1,0 +1,2 @@
+[System.Environment]::SetEnvironmentVariable("MONGODB_ATLAS_USERNAME","xodmf1215","Process")
+[System.Environment]::SetEnvironmentVariable("MONGODB_ATLAS_PASSWORD","Z4PnLyi3Iqou07iT","Process")
