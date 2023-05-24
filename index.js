@@ -1,6 +1,6 @@
 import webApp from "./webApplication.js"
 import mongodb from "mongodb"
-//import ReviewsDAO from "./dao/reviewsDAO.js"
+import ReviewsDAO from "./dao/reviewsDAO.js"
 
 const MongoClient = mongodb.MongoClient;
 const mongo_username = process.env.MONGODB_ATLAS_USERNAME;
@@ -22,8 +22,12 @@ MongoClient.connect(
   console.error(err.stack);
   process.exit(1);
 })
-.then(async client => {
-  webApp.listen(port, () => {
+.then(async (client) => {
+  webApp.listen(port, async () => {
+    // reviewsDAO directly interface with database, but we connect to MongoDB in this file.
+    // so need to send the database connection to DAO.
+    await ReviewsDAO.injectDB(client);
+
     console.log(`listening on port ${port}`);
   })
 });

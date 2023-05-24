@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import reviews from "./api/reviews.route.js";
+import { join } from 'path';
 
 //const path = require('node:path/posix')
 //const express = require('express')
@@ -18,10 +19,14 @@ webApp.use(cors());
 webApp.use(express.json());
 webApp.use("/test", (req,res) => res.status(200).json({hello: "hello"}));
 webApp.use("/api/v1/reviews", reviews);
+webApp.use('/pages', express.static(join(__dirname,'public/pages')));
+webApp.use('/css', express.static(join(__dirname,'public/css')));
+webApp.use('/img', express.static(join(__dirname,'public/img')));
+webApp.use('/js', express.static(join(__dirname,'public/js')));
 webApp.use("*", (req, res) => res.status(404).json({error: "not found"}));
 
 export default webApp;
-webApp.use(express.static('public'));
+
 /* 
 webApp.use('/img', express.static(path.join(__dirname,'public/img')));
 

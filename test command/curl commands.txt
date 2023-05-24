@@ -1,0 +1,32 @@
+#CURL COMMAND
+curl -X POST http://localhost:3000/api/v1/reviews/new -H "Content-Type: application/json" -d '{"movieId": 12, "user": "beau", "review": "good"}'
+
+
+#WINDOWS POWERSHELL COMMAND (CONVERT CURL TO Invoke-WebRequest)
+$headers = @{
+  "Content-Type" = "application/json"
+}
+
+$body = @{
+  "movieId" = 12
+  "user" = "beau"
+  "review" = "good"
+} | ConvertTo-Json
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/new" -Method POST -Headers $headers -Body $body
+
+# Same as Above but in one line.
+# Header is IDictionary Type, Body is Object Type
+# @ is used in powershell to make variable a hash table
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/new" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"movieId": 12 , "user": "beau", "review": "good"}'
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/new" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"movieId": 12 , "user": "quincy", "review": "bad movie"}'
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/new" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"movieId": 13 , "user": "beau", "review": "awesome"}'
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/646e44fb4550328907a58aec" -Method GET
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/movie/12" -Method GET
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/646e44fb4550328907a58aec" -Method PUT -Headers @{ "Content-Type" = "application/json" } -Body '{"movieId": 12 , "user": "beau", "review": "horrible"}'
+
+Invoke-WebRequest -Uri "http://localhost:3000/api/v1/reviews/646e44fb4550328907a58aec" -Method DELETE
