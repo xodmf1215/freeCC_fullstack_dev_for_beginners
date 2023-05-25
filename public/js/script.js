@@ -6,7 +6,12 @@ const main = document.getElementById("section");
 const form = document.getElementById("form");
 const search = document.getElementById("query");
 
-function returnMovies(url) {
+const serverUrl = "http://localhost:3000";
+
+// when javascript loaded, get movies in popularity order, but instead, I use document loaded event. 
+// returnMovies(APILINK);
+
+function returnMovies(url) { 
     fetch(url).then(res => res.json())
     .then(function(data) {
         console.log(data.results);
@@ -19,7 +24,8 @@ function returnMovies(url) {
             title.setAttribute('id','title')
             //const center = document.createElement('center');
 
-            title.innerHTML = `${element.title}`;
+            // add hyperlink to moview page
+            title.innerHTML = `${element.title}<br><a href="${ serverUrl }/movie.html?id=${ element.id }&title=${ element.title }">reviews</a>`;
             image.src = IMG_PATH + element.poster_path;
             image.setAttribute("id", "image");
             image.setAttribute("class","thumbnail");
@@ -38,8 +44,13 @@ function returnMovies(url) {
             main.appendChild(div_row);
         });
     });
-}
+};
+window.addEventListener('DOMContentLoaded', (e) => {
+    e.preventDefault();
+    main.innerHTML = '';
 
+    returnMovies(APILINK);
+});
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     main.innerHTML = '';
@@ -50,4 +61,4 @@ form.addEventListener("submit", (e) => {
         returnMovies(SEARCHAPI + searchItem);
         search.value = "";
     }
-})
+});
